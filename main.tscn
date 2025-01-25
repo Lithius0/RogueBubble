@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://c5crb4p7umgu4"]
+
+[ext_resource type="Script" path="res://coordinator.gd" id="1_814ol"]
+[ext_resource type="PackedScene" uid="uid://mbck75nwwvag" path="res://player/player.tscn" id="2_57a8p"]
+[ext_resource type="PackedScene" uid="uid://bwb1gj7y825ak" path="res://enemies/pin/pin.tscn" id="2_vm4lo"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_k2c81"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_owvsy"]
+noise = SubResource("FastNoiseLite_k2c81")
+
+[node name="Main" type="Node2D" node_paths=PackedStringArray("label", "enemies", "player")]
+texture_filter = 1
+script = ExtResource("1_814ol")
+label = NodePath("Label")
+enemies = NodePath("Enemies")
+enemy_presets = Array[PackedScene]([ExtResource("2_vm4lo")])
+player = NodePath("Bubble")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("NoiseTexture2D_owvsy")
+
+[node name="Bubble" parent="." instance=ExtResource("2_57a8p")]
+
+[node name="Pin" parent="." node_paths=PackedStringArray("target") instance=ExtResource("2_vm4lo")]
+position = Vector2(34, -36)
+target = NodePath("../Bubble")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -101.0
+offset_top = -159.0
+offset_right = 99.0
+offset_bottom = -136.0
+grow_horizontal = 2
+text = "PLACEHOLDER"
+horizontal_alignment = 1
+
+[node name="Enemies" type="Node" parent="."]

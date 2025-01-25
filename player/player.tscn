@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3 uid="uid://mbck75nwwvag"]
+
+[ext_resource type="Script" path="res://player/player_controller.gd" id="1_0jbcv"]
+[ext_resource type="Texture2D" uid="uid://bodfh5d3sftwq" path="res://player/bubble.png" id="1_mpw4i"]
+[ext_resource type="Script" path="res://upgrades/upgrade.gd" id="2_b4ro8"]
+[ext_resource type="Resource" uid="uid://cswaad04ok2bo" path="res://upgrades/speed/speed_upgrade.tres" id="3_p6toi"]
+[ext_resource type="Resource" uid="uid://u4w3fdhuy5vf" path="res://upgrades/health_potion/health_potion.tres" id="4_tpkmr"]
+[ext_resource type="Resource" uid="uid://cttssh3pbldtr" path="res://upgrades/health_increase/health_increase.tres" id="5_dnryf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a4n4o"]
+radius = 8.0
+
+[node name="Bubble" type="CharacterBody2D" node_paths=PackedStringArray("health_bar", "upgrade_icons")]
+texture_filter = 1
+collision_mask = 3
+script = ExtResource("1_0jbcv")
+speed = 100
+health_bar = NodePath("Panel/HealthBar")
+upgrade_icons = [NodePath("Button")]
+upgrade_pool = Array[ExtResource("2_b4ro8")]([ExtResource("3_p6toi"), ExtResource("4_tpkmr"), ExtResource("5_dnryf"), null])
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_mpw4i")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_a4n4o")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = -10.0
+offset_top = 10.0
+offset_right = 10.0
+offset_bottom = 14.0
+
+[node name="HealthBar2" type="ColorRect" parent="Panel"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 19.0
+offset_bottom = 3.0
+color = Color(1, 0, 0, 1)
+
+[node name="HealthBar" type="ColorRect" parent="Panel"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 19.0
+offset_bottom = 3.0
+color = Color(0, 1, 0, 1)
+
+[node name="Button" type="Button" parent="."]
+offset_left = -93.0
+offset_top = 31.0
+offset_right = -61.0
+offset_bottom = 63.0
+expand_icon = true
