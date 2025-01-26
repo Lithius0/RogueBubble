@@ -8,4 +8,4 @@ script = ExtResource("1_407tb")
 restore_amount = 2
 upgrade_name = "Health Potion"
 icon = ExtResource("1_hb4ok")
-description = "Restore 2 health, up the player's max health"
+description = "Restore 2 health, up to the player's max health"

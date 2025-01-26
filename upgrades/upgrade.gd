@@ -3,9 +3,16 @@ class_name Upgrade
 
 @export var upgrade_name: String = ""
 @export var icon: Texture2D
-@export var description: String = ""
+@export_multiline var description: String = ""
 var player: Player
 
+func count_self(array: Array[Upgrade]) -> int:
+	var sum: int = 0
+	for item in array:
+		if item.upgrade_name == upgrade_name:
+			sum += 1
+	return sum
+		
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.

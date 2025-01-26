@@ -22,9 +22,6 @@ upgrade_pool = Array[ExtResource("2_b4ro8")]([ExtResource("3_p6toi"), ExtResourc
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_mpw4i")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_a4n4o")
 

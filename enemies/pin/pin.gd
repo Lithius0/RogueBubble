@@ -3,8 +3,10 @@ extends AnimatableBody2D
 @export var target: Node2D
 var timer := 5.0
 @export var speed := 100.0
+@export var sprite: Sprite2D
 var direction := Vector2.UP
 var moving := false;
+var relative_position: Vector2 = Vector2.ZERO
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,8 +19,9 @@ func _process(delta: float) -> void:
 		return
 	
 	if not moving:
-		global_rotation = Vector2.DOWN.angle_to(target.global_position - global_position)
+		global_position = target.global_position + relative_position
 		timer -= delta
+		sprite.self_modulate = Color(1 - clamp(timer / 6, 0 , 1), 0, clamp(timer / 6, 0 , 1), 1)
 		if timer <= 0:
 			direction = (target.global_position - global_position).normalized()
 			moving = true
@@ -40,4 +43,7 @@ func _physics_process(delta: float) -> void:
 
 func spawn(player: Player) -> void:
 	target = player
-	timer = randf_range(3, 5)
+	global_rotation = Vector2.DOWN.angle_to(target.global_position - global_position)
+	relative_position = global_position - player.global_position
+	timer = randf_range(1, 4)
+	speed += randf_range(-30, 30)

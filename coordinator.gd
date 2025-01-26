@@ -7,16 +7,17 @@ enum { ACTIVE, INTERMISSION }
 @export var enemies: Node
 @export var enemy_presets: Array[PackedScene]
 @export var player: Player
+var round_number = 0
 var round_timer: float = 0
 
-var state := ACTIVE
+var state := INTERMISSION
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	player.upgrade_added.connect(on_upgrade_added)
-	start_round()
+	end_round()
 
-func on_upgrade_added():
+func on_upgrade_added(upgrade: Upgrade):
 	if state == INTERMISSION:
 		start_round()
 
@@ -32,12 +33,13 @@ func round_process(delta: float) -> void:
 		end_round()
 
 func start_round() -> void:
+	round_number += 1
 	round_timer = round_duration
 	state = ACTIVE
-	for i in 5:
+	for i in round_number + 5:
 		var new_enemy_packed: PackedScene = enemy_presets.pick_random() as PackedScene
 		var new_enemy: Node = new_enemy_packed.instantiate() as Node
-		var radius = randf_range(20, 200)
+		var radius = randf_range(100, 300)
 		var angle = randf_range(0, TAU)
 		enemies.add_child(new_enemy)
 		new_enemy.global_position = Vector2(cos(angle) * radius, sin(angle) * radius) + player.global_position

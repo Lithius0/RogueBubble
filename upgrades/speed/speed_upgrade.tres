@@ -8,4 +8,4 @@ script = ExtResource("1_d3usm")
 speed_multiplier = 1.2
 upgrade_name = "Speed Upgrade"
 icon = ExtResource("1_hcdqm")
-description = "20% boost to movement speed."
+description = "20% boost to movement speed. Maximum of 7."

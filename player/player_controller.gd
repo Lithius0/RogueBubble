@@ -1,13 +1,15 @@
 extends CharacterBody2D
 class_name Player
 
-signal upgrade_added()
+signal upgrade_added(upgrade: Upgrade)
 
 @export var speed = 1
 @export var health: float = 3.0:
 	set(value):
 		health = value
 		update_health_bar()
+		if value <= 0:
+			get_tree().reload_current_scene()
 @export var max_health: float = 3.0:
 	set(value):
 		max_health = value
@@ -43,10 +45,10 @@ func _physics_process(delta: float) -> void:
 	move_and_collide(movement)
 	
 func upgrade_pressed(index: int) -> void:
-	var upgrade = upgrade_shop[index]
+	var upgrade = upgrade_shop[index].duplicate()
 	upgrade.on_add(self)
 	upgrades.append(upgrade)
-	upgrade_added.emit()
+	upgrade_added.emit(upgrade)
 	unshow_uprades()
 	
 func update_health_bar():
