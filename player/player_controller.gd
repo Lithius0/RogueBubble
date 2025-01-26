@@ -4,8 +4,14 @@ class_name Player
 signal upgrade_added()
 
 @export var speed = 1
-@export var health = 3
-@export var max_health = 3
+@export var health: float = 3.0:
+	set(value):
+		health = value
+		update_health_bar()
+@export var max_health: float = 3.0:
+	set(value):
+		max_health = value
+		update_health_bar()
 @export var health_bar: ColorRect
 @export var upgrade_icons: Array[Button] = []
 @export var upgrades: Array[Upgrade] = []
@@ -16,6 +22,7 @@ var upgrade_shop: Array[Upgrade] = []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	update_health_bar()
+	unshow_uprades()
 	for i in upgrade_icons.size():
 		var icon = upgrade_icons[i]
 		icon.pressed.connect(upgrade_pressed.bind(i))
@@ -54,7 +61,6 @@ func hit(damage: int) -> void:
 		damage = upgrade.on_hit(damage, upgrade_stack)
 		upgrade_stack.append(upgrade)
 	health -= damage
-	update_health_bar()
 	return
 	
 func show_upgrades() -> void:
